@@ -14,10 +14,31 @@
 
 	io.on('connection',(socket)=>{
 		console.log('new user connected');
+
+		socket.emit('newEmail',
+		{
+			from: "kalpeshrajvir@gmail.com",
+			subject: "this is test socket"
+		});
+
+		socket.emit('newMessage',
+		{
+			messaage: "New Message recieved"
+		});		
+
 		socket.on('disconnect',()=>{
 			console.log('User disconnected');
-		})
+		});
+
+		socket.on('createEmail',(newEmail)=>{
+			console.log('create Email',newEmail);
+		});
+
+		socket.on('createMessage',(message)=>{
+			console.log('create Message',message);
+		});				
 	});
+
 
 	server.listen(port, () => {
 	  console.log(`Server is up on ${port}`);
