@@ -15,7 +15,7 @@
 	io.on('connection',(socket)=>{
 		console.log('new user connected');
 
-		socket.emit('newEmail',
+/*		socket.emit('newEmail',
 		{
 			from: "kalpeshrajvir@gmail.com",
 			subject: "this is test socket"
@@ -24,7 +24,7 @@
 		socket.emit('newMessage',
 		{
 			messaage: "New Message recieved"
-		});		
+		});	*/	
 
 		socket.on('disconnect',()=>{
 			console.log('User disconnected');
@@ -36,6 +36,11 @@
 
 		socket.on('createMessage',(message)=>{
 			console.log('create Message',message);
+			io.emit('newMessage',{
+				from: message.from,
+				text: message.text,
+				createAt: new Date().getTime()
+			})
 		});				
 	});
 
